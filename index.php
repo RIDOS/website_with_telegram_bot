@@ -33,10 +33,6 @@ define('TOKEN','2081869045:AAHOxlDy3WWSqB2G8W8Jtd80cKBtyy2GkUo');
 # Обрабатываем команды
 $message = mb_strtolower(($data['text'] ? $data['text'] : $data['data']), 'UTF-8');
 
-
-# Добовляем данные пользователя
-$send_data['chat_id'] = $data['chat']['id'];
-
 # Обработка сообщений
 switch ($message)
 {
@@ -85,7 +81,10 @@ switch ($message)
         break;
     case 'оставить отзыв':
         $method = 'sendMessage';
-        featback($method, "Здарова", $send_data);
+        featback($method, "Здарова");
+        $send_data = [
+            'text' => 'Сообщение было отправленно.'
+        ];
         break;
     default:
         $method = 'sendMessage';
@@ -115,6 +114,24 @@ function today_study()
                 return "Вторник:\n1. Дифф. уравнения (каб. 526)\n2. Матем. анализ (каб. 526)\n3. ФИЗКУЛЬТУРА";
                 break;
             case "3":
+                return "Среда:\n1. Дифференциальные уравнения (каб. 515)\n2. ВССТ (каб. 520а)\n3. ВССТ (каб. 501)\n4. ЭС (Дистанционно)";
+                break;
+            case "4":
+                return "Четверг:\n1. Матем. анализ (каб. 501)\n2. Философия (каб. 531)\n3. -\n4. -";
+                break;
+            default:
+                return "Понедельник:\n1. ИСиТ (каб. 520а)\n2. Иностранный язык\n3. ИСиТ (каб. 515)\n4. Математ. анализ (каб. 526)";
+                break;
+        }
+	
+    }
+    else
+    {
+        switch (date("N")) {
+            case "2":
+                return "Вторник:\n1. Дифф. уравнения (каб. 526)\n2. Матем. анализ (каб. 526)\n3. ФИЗКУЛЬТУРА";
+                break;
+            case "3":
                 return "Среда:\n1. Дифф. уравнения (каб. 515)\n2. ЭС (каб. 501)\n3. Матем. анализ (каб. 501)\n4. ЭС (Дистанционно)";
                 break;
             case "4":
@@ -125,24 +142,10 @@ function today_study()
                 break;
         }
     }
-    else
-    {
-        switch (date("N")) {
-            case "2":
-                return "Вторник:\n1. Дифф. уравнения (каб. 526)\n2. Матем. анализ (каб. 526)\n3. ФИЗКУЛЬТУРА";
-                break;
-            case "3":
-                return "Среда:\n1. Дифференциальные уравнения (каб. 515)\n2. ВССТ (каб. 520а)\n3. ВССТ (каб. 501)\n4. ЭС (Дистанционно)";
-                break;
-            case "4":
-                return "Четверг:\n1. Матем. анализ (каб. 501)\n2. Философия (каб. 531)\n3. -\n4. -";
-                break;
-            default:
-                return "Понедельник:\n1. ИСиТ (каб. 520а)\n2. Иностранный язык\n3. ИСиТ (каб. 515)\n4. Математ. анализ (каб. 526)";
-                break;
-        }
-    }
 }
+
+# Добовляем данные пользователя
+$send_data['chat_id'] = $data['chat']['id'];
 
 $res = sendTelegram($method, $send_data);
 
@@ -163,7 +166,7 @@ function sendTelegram($method, $data, $headers = [])
     return (json_decode($result, 1) ? json_decode($result, 1) : $result);
 }
 
-function featback($method, $text, $data, $headers = [])
+function featback($method, $text)
 {
     $curl = curl_init();
     curl_setopt_array($curl, [
@@ -175,11 +178,12 @@ function featback($method, $text, $data, $headers = [])
             'chat_id' => "545913377",
             'text' => $text,
         ),
+        CURLOPT_HTTPHEADER => array_merge(array("Content-Type: application/json"), $headers)
     ]);
     $result = curl_exec($curl);
     curl_close($curl);
 
-    return "Сообщение было отправленно.";
+    return (json_decode($result, 1) ? json_decode($result, 1) : $result);
 }
 ?>
 </body>

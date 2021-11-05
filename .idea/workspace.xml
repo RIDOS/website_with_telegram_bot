@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7ee6be61-76ff-4e88-9070-0317e1e69f7d" name="Default Changelist" comment="" />
+    <list default="true" id="7ee6be61-76ff-4e88-9070-0317e1e69f7d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Резервная копия/file.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/file.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Резервная копия/file.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Резервная копия/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/Резервная копия/index.php" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,7 +21,11 @@
       <executable />
     </execution>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="208kFNQpf2g9LVlAEnIU02NQEsP" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -20,8 +33,15 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/Резервная копия" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Richard\Desktop\Web server\Резервная копия" />
+    </key>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -34,7 +54,7 @@
       <option name="presentableId" value="Default" />
       <updated>1635433501065</updated>
       <workItem from="1635433508846" duration="12408000" />
-      <workItem from="1636051352677" duration="192000" />
+      <workItem from="1636051352677" duration="1022000" />
     </task>
     <servers />
   </component>
@@ -42,10 +62,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="461" y="151" key="SettingsEditor" timestamp="1636051547924">
+    <state x="461" y="151" key="SettingsEditor" timestamp="1636052384768">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="461" y="151" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1636051547924" />
+    <state x="461" y="151" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1636052384768" />
     <state x="616" y="240" width="672" height="677" key="run.anything.popup" timestamp="1636051414788">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
