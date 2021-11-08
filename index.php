@@ -1,16 +1,3 @@
-<!doctype html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>RIDOS_ftp</title>
-</head>
-<body>
-        Server is ready
-
 <?php
 mb_internal_encoding('UTF-8');
 
@@ -21,7 +8,7 @@ $data = json_decode(file_get_contents('php://input'), TRUE);
 print($data);
 
 
-file_put_contents('file.php', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
+file_put_contents('file.txt', '$data: '.print_r($data, 1)."\n", FILE_APPEND);
 
 //https://api.telegram.org/bot2081869045:AAHOxlDy3WWSqB2G8W8Jtd80cKBtyy2GkUo/setwebhook?url=https://u1510011.trial.reg.site/index.php
 
@@ -39,7 +26,7 @@ switch ($message)
     case '/start':
         $method = 'sendMessage';
         $send_data = [
-                'text' => "Пока что функционал бота ограничен, но все еще впереди. Вот какие функции доступны тебе уже сейчас:\nкоманда /menu - вызывает меню бота."
+            'text' => "Пока что функционал бота ограничен, но все еще впереди. Вот какие функции доступны тебе уже сейчас:\nкоманда /menu - вызывает меню бота."
         ];
         break;
     case '/menu':
@@ -47,16 +34,16 @@ switch ($message)
         $send_data = [
             'text' => 'Доступные функции',
             'reply_markup' => [
-                    'resize_keyboard' => true,
-                    'keyboard' =>[
-                            [
-                                ['text' => 'Полное рассписание'],
-                                ['text' => 'Ближайшие расписание'],
-                            ],
-                            [
-                                ['text' => 'Оставить отзыв'],
-                            ]
+                'resize_keyboard' => true,
+                'keyboard' =>[
+                    [
+                        ['text' => 'Полное рассписание'],
+                        ['text' => 'Ближайшие расписание'],
+                    ],
+                    [
+                        ['text' => 'Оставить отзыв'],
                     ]
+                ]
             ]
         ];
         break;
@@ -89,7 +76,7 @@ switch ($message)
     default:
         $method = 'sendMessage';
         $send_data = [
-                'text' => 'Быканул?'
+            'text' => 'Быканул?'
         ];
 }
 
@@ -123,7 +110,7 @@ function today_study()
                 return "Понедельник:\n1. ИСиТ (каб. 520а)\n2. Иностранный язык\n3. ИСиТ (каб. 515)\n4. Математ. анализ (каб. 526)";
                 break;
         }
-	
+
     }
     else
     {
@@ -153,12 +140,12 @@ function sendTelegram($method, $data, $headers = [])
 {
     $curl = curl_init();
     curl_setopt_array($curl, [
-            #CURLOPT_PORT => 1,
-            CURLOPT_HEADER => 0,
-            CURLOPT_RETURNTRANSFER => 1,
-            CURLOPT_URL => 'https://api.telegram.org/bot'. TOKEN . '/' . $method,
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array_merge(array("Content-Type: application/json"), $headers)
+        #CURLOPT_PORT => 1,
+        CURLOPT_HEADER => 0,
+        CURLOPT_RETURNTRANSFER => 1,
+        CURLOPT_URL => 'https://api.telegram.org/bot'. TOKEN . '/' . $method,
+        CURLOPT_POSTFIELDS => json_encode($data),
+        CURLOPT_HTTPHEADER => array_merge(array("Content-Type: application/json"), $headers)
     ]);
     $result = curl_exec($curl);
     curl_close($curl);
@@ -186,5 +173,48 @@ function featback($method, $text)
     return (json_decode($result, 1) ? json_decode($result, 1) : $result);
 }
 ?>
+
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <!--  Favicon  -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <!--  Style & Bootstrap  -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Прикладная Информатика</title>
+</head>
+<body>
+    <?php
+    include('view/nav.php');
+    ?>
+    <div class="main">
+        <div class="container-xxl mt-3">
+                <div class="row align-items-center">
+                    <div class="col-7">
+                        <h1>Приветствую!</h1>
+                        <p>Ссылка на telegram <a style="text-decoration: none" href="https://t.me/Group_26PI_NEWS_bot"><code>@Group_26PI_NEWS_bot</code></a></p>
+                    </div>
+
+                    <div class="col-5">
+                        <img src="tmp/main.jpg" class="w-100" alt="image">
+                    </div>
+                </div>
+        </div>
+
+        <?php
+        include('view/about.php');
+        ?>
+    </div>
+
+    <!-- JS Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" integrity="sha384-W8fXfP3gkOKtndU4JGtKDvXbO53Wy8SZCQHczT5FMiiqmQfUpWbYdTil/SxwZgAN" crossorigin="anonymous"></script>
+    <script src="../js/bootstrap.min.js" integrity="sha384-skAcpIdS7UcVUC05LJ9Dxay8AXcDYfBJqt1CJ85S/CFujBsIzCIv+l9liuYLaMQ/" crossorigin="anonymous"></script>
 </body>
 </html>
