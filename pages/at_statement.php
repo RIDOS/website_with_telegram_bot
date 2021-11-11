@@ -1,6 +1,11 @@
 <?php
 require_once('../public_html/databaseconnect.php');
 $conn = mysqli_connect($servername, $username, $password, $database);
+$conn->query("SET NAMES UTF8");
+$conn->query("SET CHARACTER SET UTF8");
+$conn->query("SET character_set_client = UTF8");
+$conn->query("SET character_set_connection = UTF8");
+$conn->query("SET character_set_results = UTF8");
 $errors = "";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -12,36 +17,42 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $count = 0;
     $value = "";
 
-    $que_1 = mysqli_query($conn,"SELECT * FROM `statement` WHERE `id_user` = '$stu' AND `id_discipline` = '$pre'");
+    $que_1 = mysqli_query($conn, "SELECT * FROM `statement` WHERE `id_user` = '$stu' AND `id_discipline` = '$pre'");
     //  Проверяем, есть ли записи у пользователя.
     if ($que_1) {
         if ($que_1->num_rows) {
             // Поля есть. Изменяем запись.
             while ($row = $que_1->fetch_assoc()) {
-                $count =  $row['count_v'];
+                $count = $row['count_v'];
                 $value = $row['value'];
             }
             $count += $c;
             if ($v > 0)    // Если пользователь не указал значение, либо значение оказалось меньше, либо равно 0.
-                $value  .= $v.' ';
+                $value .= $v . ' ';
 
             // "UPDATE `statement` SET `count_v`='$count',`value`='$value' WHERE `id_user`='$stu' AND `id_discipline`='$pre'";
             $que_2 = mysqli_query($conn, "UPDATE `statement` SET `count_v`='$count',`value`='$value' WHERE `id_user`='$stu' AND `id_discipline`='$pre'");
             if ($que_2) {
                 header('Location: /pages/statement.php ');
+            } else {
+                $error = 'Ошибка обновления запроса';
             }
-            else
-            {
-                echo "Запрос НЕ выполнен.";
-            }
-        }
-        else
-        {
+        } else {
             // Полей нет. Добавляем новую запись.
-            echo "Полей нет. Добавляем новую запись.";
+            $count += $c;
+            if ($v > 0)    // Если пользователь не указал значение, либо значение оказалось меньше, либо равно 0.
+                $value .= $v . ' ';
+
+            $que_2 = mysqli_query($conn, "INSERT INTO `statement`(`id_user`, `id_discipline`, `count_v`, `value`) VALUES ('$stu', '$pre', '$count', '$value')");
+            if ($que_2) {
+                header('Location: /pages/statement.php ');
+            } else {
+                $error = 'Ошибка записи';
+            }
         }
     }
 }
+$conn->close();
 ?>
 <!doctype html>
 <html lang="ru">
@@ -83,6 +94,11 @@ include('../view/nav.php');
                         <option selected>Группа</option>
                         <?
                         $conn = mysqli_connect($servername, $username, $password, $database);
+                        $conn->query("SET NAMES UTF8");
+                        $conn->query("SET CHARACTER SET UTF8");
+                        $conn->query("SET character_set_client = UTF8");
+                        $conn->query("SET character_set_connection = UTF8");
+                        $conn->query("SET character_set_results = UTF8");
                         $id = 0;
                         $query = "SELECT * FROM `group_name`";
                         if ($result = $conn->query($query)) {
@@ -91,7 +107,7 @@ include('../view/nav.php');
                                 $title = $row["title"];
                                 ?>
                                 <option value="<? echo $id; ?>"><? echo $title; ?></option>
-                                <?
+                                <?php
                             }
                         }
                         $conn->close();
@@ -101,8 +117,13 @@ include('../view/nav.php');
                         <option selected>Студент</option>
                     </select>
                     <select id="predmet" class="btn btn-info btn-outline-dark dropdown-toggle" onchange="FetchStudent(this.value)" name="predmet_select" required>
-                        <?
+                        <?php
                         $conn = mysqli_connect($servername, $username, $password, $database);
+                        $conn->query("SET NAMES UTF8");
+                        $conn->query("SET CHARACTER SET UTF8");
+                        $conn->query("SET character_set_client = UTF8");
+                        $conn->query("SET character_set_connection = UTF8");
+                        $conn->query("SET character_set_results = UTF8");
                         $id = 0;
                         $query = "SELECT * FROM `discipline` WHERE `name` != \"ВССТ\" AND `name` != \"ИСиТ\"";
                         if ($result = $conn->query($query)) {

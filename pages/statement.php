@@ -33,6 +33,11 @@ require_once('../public_html/databaseconnect.php');
                         <option selected>Группа</option>
                         <?
                         $conn = mysqli_connect($servername, $username, $password, $database);
+                        $conn->query("SET NAMES UTF8");
+                        $conn->query("SET CHARACTER SET UTF8");
+                        $conn->query("SET character_set_client = UTF8");
+                        $conn->query("SET character_set_connection = UTF8");
+                        $conn->query("SET character_set_results = UTF8");
                         $id = 0;
                         $query = "SELECT * FROM `group_name`";
                         if ($result = $conn->query($query)) {

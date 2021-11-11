@@ -1,6 +1,11 @@
 <?php
 require_once('../public_html/databaseconnect.php');
 $conn = mysqli_connect($servername, $username, $password, $database);
+$conn->query("SET NAMES UTF8");
+$conn->query("SET CHARACTER SET UTF8");
+$conn->query("SET character_set_client = UTF8");
+$conn->query("SET character_set_connection = UTF8");
+$conn->query("SET character_set_results = UTF8");
 $errors = "";
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -13,6 +18,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         $query = "INSERT INTO `home_work`(`id_discipline`, `id_group`, `text`, `date`) VALUES ('$disticiline','$group','$text','$dateTime')";
         $rez = mysqli_query($conn, $query);
+
         if ($rez > 0)
         {
             header( 'Location: /pages/homework.php');
@@ -75,6 +81,11 @@ include('../view/nav.php');
                 <?
                 require_once('../public_html/databaseconnect.php');
                 $conn = mysqli_connect($servername, $username, $password, $database);
+                $conn->query("SET NAMES UTF8");
+                $conn->query("SET CHARACTER SET UTF8");
+                $conn->query("SET character_set_client = UTF8");
+                $conn->query("SET character_set_connection = UTF8");
+                $conn->query("SET character_set_results = UTF8");
                 $query = "SELECT * FROM `group_name`";
                 if ($result = $conn->query($query)) {
                     foreach ($result as $row) {
@@ -95,6 +106,11 @@ include('../view/nav.php');
                 <?
                 require_once('../public_html/databaseconnect.php');
                 $conn = mysqli_connect($servername, $username, $password, $database);
+                $conn->query("SET NAMES UTF8");
+                $conn->query("SET CHARACTER SET UTF8");
+                $conn->query("SET character_set_client = UTF8");
+                $conn->query("SET character_set_connection = UTF8");
+                $conn->query("SET character_set_results = UTF8");
                 $query = "SELECT * FROM `discipline`";
                 if ($result = $conn->query($query)) {
                     foreach ($result as $row) {

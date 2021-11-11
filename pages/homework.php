@@ -8,7 +8,6 @@
     <!--  Favicon  -->
     <link rel="icon" href="../favicon.ico" type="image/x-icon">
     <!--  Style & Bootstrap  -->
-    <link href="../css/style.css" rel="stylesheet" type="text/css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Прикладная Информатика</title>
@@ -37,11 +36,17 @@ include('../view/nav.php');
                         </tr>
                         </thead>
                         <tbody>
-                        <?
+                        <?php
                         require_once('../public_html/databaseconnect.php');
 
                         $conn = mysqli_connect($servername, $username, $password, $database);
+                        $conn->query("SET NAMES UTF8");
+                        $conn->query("SET CHARACTER SET UTF8");
+                        $conn->query("SET character_set_client = UTF8");
+                        $conn->query("SET character_set_connection = UTF8");
+                        $conn->query("SET character_set_results = UTF8");
                         $query = "SELECT title, discipline.name, text, date FROM home_work INNER JOIN discipline ON `discipline`.id = `home_work`.id_discipline INNER JOIN `group_name` ON `home_work`.id_group = `group_name`.id";
+
                         if ($result = $conn->query($query)) {
                             foreach ($result as $row) {
                                 $group_name = $row["title"];
@@ -51,15 +56,15 @@ include('../view/nav.php');
 
                                 //echo $group_name;
 
-                                if ($date < date('l jS \of F Y ')) {
+                                if ($date > date('Y-m-d')) {
                                     if ($group_name == '25') {
                                         ?>
                                         <tr>
-                                            <th scope="row"><? echo $discipline_name; ?></th>
-                                            <td><? echo $text; ?></td>
-                                            <td><? echo $date; ?></td>
+                                            <th scope="row"><?php echo $discipline_name; ?></th>
+                                            <td><?php echo $text; ?></td>
+                                            <td><?php echo $date; ?></td>
                                         </tr>
-                                        <?
+                                        <?php
                                     }
                                 }
                             }
@@ -83,13 +88,19 @@ include('../view/nav.php');
                         </tr>
                         </thead>
                         <tbody>
-                        <?
+                        <?php
                         require_once('../public_html/databaseconnect.php');
 
                         $conn = mysqli_connect($servername, $username, $password, $database);
-                        $query = "SELECT title, discipline.name, text, date FROM home_work INNER JOIN discipline ON `discipline`.id = `home_work`.id_discipline INNER JOIN `group_name` ON `home_work`.id_group = `group_name`.id";
+                        $conn->query("SET NAMES UTF8");
+                        $conn->query("SET CHARACTER SET UTF8");
+                        $conn->query("SET character_set_client = UTF8");
+                        $conn->query("SET character_set_connection = UTF8");
+                        $conn->query("SET character_set_results = UTF8");
+                        $query = "SELECT home_work.id, title, discipline.name, text, date FROM home_work INNER JOIN discipline ON `discipline`.id = `home_work`.id_discipline INNER JOIN `group_name` ON `home_work`.id_group = `group_name`.id";
                         if ($result = $conn->query($query)) {
                             foreach ($result as $row) {
+                                $id = $row['id'];
                                 $group_name = $row["title"];
                                 $discipline_name = $row["name"];
                                 $text = $row["text"];
@@ -97,15 +108,23 @@ include('../view/nav.php');
 
                                 //echo $group_name;
 
-                                if ($date < date('l jS \of F Y ')) {
+                                if ($date > date('Y-m-d')) {
                                     if ($group_name == '26') {
                                         ?>
                                         <tr>
-                                            <th scope="row"><? echo $discipline_name; ?></th>
-                                            <td><? echo $text; ?></td>
-                                            <td><? echo $date; ?></td>
+                                            <th scope="row"><?php echo $discipline_name; ?></th>
+                                            <td><?php echo $text; ?></td>
+                                            <td><?php echo $date; ?></td>
                                         </tr>
-                                        <?
+                                        <?php
+                                    }
+                                }
+                                else
+                                {
+                                    $query = "DELETE FROM `home_work` WHERE `home_work`.`id` = ".$id;
+                                    $rez = $conn->query($query);
+                                    if (!$rez) {
+                                        echo "Запрос не выполнен!";
                                     }
                                 }
                             }
