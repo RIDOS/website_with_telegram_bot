@@ -14,13 +14,23 @@
                     <a class="nav-link" href="../pages/statement.php">Ведомость</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../pages/homework.php">Домашнии задания</a>
+                    <a class="nav-link" href="../pages/homework.php">Домашние задания</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="../pages/bibliotec.php">Библиотека</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="../pages/foto.php">Альбом</a>
                 </li>
             </ul>
         </div>
     </div>
 </nav>
+<style>
+    @media (max-width: 991.98px) {
+        .navbar-expand-lg > .container,
+        .navbar-expand-lg > .container-fluid {
+            padding-right: 0;
+            padding-left: 0; } }
+</style>
 <!--  /Nav  -->
